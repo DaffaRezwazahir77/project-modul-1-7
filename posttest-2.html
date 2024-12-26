@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota Penjualan</title>
+    <script>
+        // Data barang
+        const dataBarang = {
+            "B001": { nama: "Buku", harga: 5000 },
+            "B002": { nama: "Penggaris", harga: 1500 },
+            "B003": { nama: "Pulpen", harga: 2000 }
+        };
+
+        function updateBarang() {
+            const kode = document.getElementById("kodeBarang").value;
+            const namaBarang = document.getElementById("namaBarang");
+            const harga = document.getElementById("harga");
+
+            if (dataBarang[kode]) {
+                namaBarang.value = dataBarang[kode].nama;
+                harga.value = dataBarang[kode].harga;
+            } else {
+                namaBarang.value = "";
+                harga.value = 0;
+            }
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const jumlahBeli = parseInt(document.getElementById("jumlahBeli").value) || 0;
+            const harga = parseInt(document.getElementById("harga").value) || 0;
+            const jumlahBayar = jumlahBeli * harga;
+            const potonganPersen = getPotonganPersen(jumlahBeli);
+            const potongan = (potonganPersen / 100) * jumlahBayar;
+            const totalBayar = jumlahBayar - potongan;
+
+            document.getElementById("jumlahBayar").value = jumlahBayar;
+            document.getElementById("potongan").value = potonganPersen;
+            document.getElementById("totalBayar").value = totalBayar;
+        }
+
+        function getPotonganPersen(jumlahBeli) {
+            if (jumlahBeli > 21) return 15;
+            else if (jumlahBeli > 10) return 10;
+            else if (jumlahBeli > 0) return 5;
+            else return 0;
+        }
+
+        function tampilkanNota() {
+            const kode = document.getElementById("kodeBarang").value;
+            const namaBarang = document.getElementById("namaBarang").value;
+            const harga = document.getElementById("harga").value;
+            const jumlahBeli = document.getElementById("jumlahBeli").value;
+            const jumlahBayar = document.getElementById("jumlahBayar").value;
+            const potongan = document.getElementById("potongan").value;
+            const totalBayar = document.getElementById("totalBayar").value;
+
+            const nota = `
+                <h3>Nota Penjualan</h3>
+                <p>Kode Barang: ${kode}</p>
+                <p>Nama Barang: ${namaBarang}</p>
+                <p>Harga Barang: ${harga}</p>
+                <p>Jumlah Beli: ${jumlahBeli}</p>
+                <p>Jumlah Bayar: ${jumlahBayar}</p>
+                <p>Potongan: ${potongan}%</p>
+                <p>Total Bayar: ${totalBayar}</p>
+            `;
+            document.getElementById("nota").innerHTML = nota;
+        }
+    </script>
+</head>
+<body>
+    <h2>Data Penjualan Barang</h2>
+    <table>
+        <tr>
+            <td>Kode</td>
+            <td>
+                <select id="kodeBarang" onchange="updateBarang()">
+                    <option value="">--Pilih Salah Satu--</option>
+                    <option value="B001">B001</option>
+                    <option value="B002">B002</option>
+                    <option value="B003">B003</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Jumlah Beli</td>
+            <td><input type="number" id="jumlahBeli" value="0" oninput="calculateTotal()"></td>
+        </tr>
+        <tr>
+            <td>Nama Barang</td>
+            <td><input type="text" id="namaBarang" readonly></td>
+        </tr>
+        <tr>
+            <td>Harga</td>
+            <td><input type="number" id="harga" readonly></td>
+        </tr>
+        <tr>
+            <td>Jumlah Bayar</td>
+            <td><input type="number" id="jumlahBayar" readonly></td>
+        </tr>
+        <tr>
+            <td>Potongan</td>
+            <td><input type="number" id="potongan" readonly>%</td>
+        </tr>
+        <tr>
+            <td>Total Bayar</td>
+            <td><input type="number" id="totalBayar" readonly></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button onclick="tampilkanNota()">TAMPILKAN</button></td>
+        </tr>
+    </table>
+    <div id="nota"></div>
+</body>
+</html>

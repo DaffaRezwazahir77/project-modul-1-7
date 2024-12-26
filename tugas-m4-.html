@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Pemesanan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f2f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555555;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+      transition: all 0.3s ease;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #007bff;
+      background-color: #ffffff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .checkbox input {
+      width: auto;
+      margin-right: 10px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    button {
+      cursor: pointer;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .btn-simpan {
+      background-color: #28a745;
+      color: white;
+    }
+    .btn-simpan:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+    .btn-batal {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn-batal:hover {
+      background-color: #c82333;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Form Pemesanan</h1>
+    <form id="formPemesanan">
+      <label for="idPemesanan">ID Pemesanan</label>
+      <input type="text" id="idPemesanan" value="1" readonly>
+      
+      <label for="namaPemesan">Nama Pemesan</label>
+      <input type="text" id="namaPemesan" placeholder="Masukkan nama pemesan" required>
+      
+      <label for="nomorIdentitas">Nomor Identitas</label>
+      <input type="text" id="nomorIdentitas" maxlength="16" placeholder="Masukkan nomor identitas (16 digit)" required>
+      
+      <label for="jenisKelamin">Jenis Kelamin</label>
+      <select id="jenisKelamin" required>
+        <option value="" disabled selected>-- Pilih --</option>
+        <option value="Laki-Laki">Laki-Laki</option>
+        <option value="Perempuan">Perempuan</option>
+      </select>
+      
+      <label for="tipeKamar">Tipe Kamar</label>
+      <select id="tipeKamar" required>
+        <option value="" disabled selected>-- Pilih --</option>
+        <option value="Standar">Standar</option>
+        <option value="Deluxe">Deluxe</option>
+        <option value="Family">Family</option>
+      </select>
+      
+      <label for="harga">Harga</label>
+      <input type="number" id="harga" readonly placeholder="Harga akan terisi otomatis">
+      
+      <label for="tanggalPesan">Tanggal Pesan</label>
+      <input type="date" id="tanggalPesan" required>
+      
+      <label for="durasiMenginap">Durasi Menginap (Hari)</label>
+      <input type="number" id="durasiMenginap" placeholder="Masukkan jumlah hari" required>
+      
+      <div class="checkbox">
+        <input type="checkbox" id="breakfast">
+        <label for="breakfast">Termasuk Breakfast</label>
+      </div>
+      
+      <label for="totalBayar">Total Bayar</label>
+      <input type="number" id="totalBayar" readonly placeholder="Total bayar akan terisi otomatis">
+      
+      <div class="buttons">
+        <button type="button" class="btn-simpan" onclick="hitungTotal()">Simpan</button>
+        <button type="reset" class="btn-batal">Batal</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function hitungTotal() {
+      const hargaPerTipe = {
+        Standar: 300000,
+        Deluxe: 500000,
+        Family: 700000,
+      };
+
+      const tipeKamar = document.getElementById("tipeKamar").value;
+      const durasiMenginap = parseInt(document.getElementById("durasiMenginap").value);
+      const breakfast = document.getElementById("breakfast").checked;
+
+      if (!tipeKamar || !durasiMenginap) {
+        alert("Harap isi semua data dengan benar!");
+        return;
+      }
+
+      let harga = hargaPerTipe[tipeKamar] * durasiMenginap;
+
+      if (durasiMenginap > 3) {
+        harga *= 0.9; // Diskon 10%
+      }
+
+      if (breakfast) {
+        harga += 80000;
+      }
+
+      document.getElementById("harga").value = hargaPerTipe[tipeKamar];
+      document.getElementById("totalBayar").value = harga;
+      alert("Total bayar berhasil dihitung!");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Tambah Data Kamar</h2>
+    <form>
+        <div class="form-group">
+            <label for="idKamar">ID Kamar:</label>
+            <input type="text" id="idKamar" required>
+        </div>
+        <div class="form-group">
+            <label for="gambarRuangan">Gambar Ruangan:</label>
+            <input type="file" id="gambarRuangan" accept="image/*" required>
+        </div>
+        <div class="form-group">
+            <label for="jenisKamar">Jenis Kamar:</label>
+            <input type="text" id="jenisKamar" required>
+        </div>
+        <div class="form-group">
+            <label for="harga">Harga:</label>
+            <input type="number" id="harga" required>
+        </div>
+        <div class="form-group">
+            <label for="fasilitas">Fasilitas:</label>
+            <input type="text" id="fasilitas" required>
+        </div>
+        <button type="submit">Simpan</button>
+    </form>
+</div>
+
+<div class="form-container" style="margin-top: 20px;">
+    <h2>Tambah Data Fasilitas</h2>
+    <form>
+        <div class="form-group">
+            <label for="idFasilitas">ID Fasilitas:</label>
+            <input type="text" id="idFasilitas" required>
+        </div>
+        <div class="form-group">
+            <label for="namaFasilitas">Nama:</label>
+            <input type="text" id="namaFasilitas" required>
+        </div>
+        <div class="form-group">
+            <label for="fasilitasDetail">Fasilitas:</label>
+            <input type="text" id="fasilitasDetail" required>
+        </div>
+        <div class="form-group">
+            <label for="hargaWeekend">Harga Weekend:</label>
+            <input type="number" id="hargaWeekend" required>
+        </div>
+        <div class="form-group">
+            <label for="hargaWeekday">Harga Weekday:</label>
+            <input type="number" id="hargaWeekday" required>
+        </div>
+        <div class="form-group">
+            <label for="kuota">Kuota:</label>
+            <input type="number" id="kuota" required>
+        </div>
+        <div class="form-group">
+            <label for="jamBuka">Jam Buka:</label>
+            <input type="text" id="jamBuka" required>
+        </div>
+        <div class="form-group">
+            <label for="jamTutup">Jam Tutup:</label>
+            <input type="text" id="jamTutup" required>
+        </div>
+        <button type="submit">Simpan</button>
+    </form>
+</div>
+
+</body>
+</html>

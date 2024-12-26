@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Pemesanan</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form id="bookingForm">
+        <label>Nama Pemesan: <input type="text" id="nama" required></label><br>
+        <label>Jenis Kelamin: 
+            <select id="gender">
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+        </label><br>
+        <label>Nomor Identitas: <input type="text" id="idNumber" maxlength="16"></label><br>
+        <label>Tipe Kamar:
+            <select id="roomType">
+                <option value="Standar" data-price="500000">Standar</option>
+                <option value="Deluxe" data-price="800000">Deluxe</option>
+                <option value="Family" data-price="1200000">Family</option>
+            </select>
+        </label><br>
+        <label>Harga: <span id="price"></span></label><br>
+        <label>Tanggal Pesan: <input type="date" id="bookingDate"></label><br>
+        <label>Durasi Menginap (hari): <input type="number" id="duration"></label><br>
+        <label>Termasuk Breakfast: <input type="checkbox" id="breakfast"></label><br>
+        <label>Total Bayar: <span id="totalPayment"></span></label><br>
+        <button type="button" id="saveButton">Simpan</button>
+    </form>
+    <div id="summary"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Update price based on room type
+            $('#roomType').change(function() {
+                const price = $(this).find(':selected').data('price');
+                $('#price').text(price);
+            });
+
+            // Calculate total payment
+            $('#saveButton').click(function() {
+                const name = $('#nama').val();
+                const gender = $('#gender').val();
+                const idNumber = $('#idNumber').val();
+                const roomType = $('#roomType').val();
+                const price = $('#roomType').find(':selected').data('price');
+                const duration = parseInt($('#duration').val());
+                const breakfast = $('#breakfast').is(':checked') ? 80000 : 0;
+
+                // Validation
+                if (!name || !idNumber || idNumber.length !== 16 || isNaN(duration)) {
+                    alert("Pastikan semua data diisi dengan benar!");
+                    return;
+                }
+
+                // Calculate total payment
+                let total = price * duration;
+                if (duration > 3) {
+                    total *= 0.9; // Apply 10% discount
+                }
+                total += breakfast;
+
+                $('#totalPayment').text(total);
+
+                // Display summary
+                $('#summary').html(`
+                    <p>Nama: ${name}</p>
+                    <p>Nomor Identitas: ${idNumber}</p>
+                    <p>Jenis Kelamin: ${gender}</p>
+                    <p>Tipe Kamar: ${roomType}</p>
+                    <p>Durasi Menginap: ${duration} hari</p>
+                    <p>Termasuk Breakfast: ${breakfast ? "Ya" : "Tidak"}</p>
+                    <p>Total Bayar: ${total}</p>
+                `);
+            });
+        });
+    </script>
+</body>
+</html>

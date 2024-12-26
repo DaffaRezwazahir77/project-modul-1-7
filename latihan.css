@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h2 {
+    text-align: left;
+}
+
+.container {
+    text-align: left;
+    width: 300px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+label {
+    width: 100px;
+}
+
+input {
+    flex-grow: 1;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+button {
+    width: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.id-text {
+    font-size: 12px;
+    color: gray;
+}

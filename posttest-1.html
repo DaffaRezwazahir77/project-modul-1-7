@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perhitungan Gaji</title>
+    <script type="text/javascript">
+        function hit() {
+            // Mendapatkan nilai golongan dan jumlah anak
+            var golongan = document.getElementById("gol").value;
+            var jumlahAnak = parseInt(document.getElementById("anak").value) || 0;
+
+            // Variabel gaji pokok dan persen tunjangan
+            var gajiPokok = 0;
+            var persenTunjangan = 0;
+
+            // Menentukan gaji pokok dan persen tunjangan berdasarkan golongan
+            if (golongan == "I") {
+                gajiPokok = 250000;
+                persenTunjangan = 0.05;
+            } else if (golongan == "II") {
+                gajiPokok = 300000;
+                persenTunjangan = 0.10;
+            } else if (golongan == "III") {
+                gajiPokok = 350000;
+                persenTunjangan = 0.15;
+            }
+
+            // Menghitung tunjangan dan gaji bersih
+            var tunjangan = jumlahAnak * gajiPokok * persenTunjangan;
+            var gajiBersih = gajiPokok + tunjangan;
+
+            // Menampilkan hasil perhitungan
+            document.getElementById("gapok").value = gajiPokok;
+            document.getElementById("tunjangan").value = tunjangan;
+            document.getElementById("gaji").value = gajiBersih;
+        }
+    </script>
+</head>
+<body>
+    <h2>PERHITUNGAN GAJI</h2>
+    <form name="form1">
+        <label>Golongan:</label>
+        <select name="gol" id="gol">
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+        </select><br><br>
+
+        <label>Jumlah Anak:</label>
+        <input type="text" name="anak" id="anak" size="10" maxlength="10"><br><br>
+
+        <input type="button" name="hitung" value="Hitung" onclick="hit()">
+        <input type="reset" name="Batal" value="Cancel"><br><br>
+
+        <label>Gaji Pokok:</label>
+        <input type="text" name="gapok" id="gapok" readonly><br><br>
+
+        <label>Tunjangan:</label>
+        <input type="text" name="tunjangan" id="tunjangan" readonly><br><br>
+
+        <label>Gaji Bersih:</label>
+        <input type="text" name="gaji" id="gaji" readonly><br><br>
+    </form>
+</body>
+</html>
